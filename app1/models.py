@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 
 # Create your models here.
 
@@ -26,3 +27,26 @@ class post(models.Model):
 	caption = models.CharField(max_length=240)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
+	
+	@property
+	def like_count(self):
+		return len(LikeModel.objects.filter(post=self))
+	
+	@property
+	def comments(self):
+		return CommentModel.objects.filter(post=self).order_by('-created_on')
+
+
+class LikeModel(models.Model):
+	user = models.ForeignKey(user)
+	post = models.ForeignKey(post)
+	created_on = models.DateTimeField(auto_now_add=True)
+	updated_on = models.DateTimeField(auto_now=True)
+	
+class CommentModel(models.Model):
+	user = models.ForeignKey(user)
+	post = models.ForeignKey(post)
+	comment_text = models.CharField(max_length=400)
+	created_on = models.DateTimeField(auto_now_add=True)
+	updated_on = models.DateTimeField(auto_now=True)
+

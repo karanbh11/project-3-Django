@@ -23,4 +23,6 @@ urlpatterns = [
 	url(r'log/$', log_in),
 	url(r'^post/$', post),
 	url(r'^feed/$', feed),
+	url(r'^like/$', like),
+	url(r'^comment/$', comment),
 ]
