@@ -21,4 +21,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 	url(r'^$', home),
 	url(r'log/$', log_in),
+	url(r'^post/$', post),
+	url(r'^feed/$', feed),
 ]

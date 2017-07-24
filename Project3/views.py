@@ -2,7 +2,7 @@ from django.http import *
 from django.shortcuts import *
 from Project3.settings import STATIC_URL
 from app1.models import user
-from forms import signup
+from Project3.forms import signup
 from django.contrib.auth.hashers import *
 
 def home(request):
@@ -30,10 +30,34 @@ def log_in(request):
 			if user:
 				# Authenticating the password
 				if check_password(password, user.password):
-					print('User is valid')
+					token = SessionToken(user=user)
+					token.create_token()
+					token.save()
+					response = redirect('feed/')
+					response.set_cookie(key='session_token', value=token.session_token)
+					return response
 				else:
-					print('User is invalid')
+					response_data['message'] = 'Incorrect Password! Please try again!'
 	elif request.method == "GET":
 		form = log_in()
-	return render(request, 'log_in.html', {'STATIC_URL':STATIC_URL, 'form':form})
+	response_data['form'] = form
+	return render(request, 'log_in.html', response_data, {'STATIC_URL':STATIC_URL})
 
+
+	
+#For validating the session
+def check_validation(request):
+	if request.COOKIES.get('session_token'):
+		session = SessionToken.objects.filter(session_token=request.COOKIES.get('session_token')).first()
+		if session:
+			return session.user
+	else:
+		return None
+
+		
+def post(request):
+	return render(request, 'post.html')
+	
+
+def feed(request):
+	return render(request, 'feed.html')
