@@ -4,6 +4,8 @@ from Project3.settings import STATIC_URL
 from app1.models import user
 from Project3.forms import signup
 from django.contrib.auth.hashers import *
+from imgurpython import ImgurClient
+from Project3.settings import BASE_DIR
 
 def home(request):
 	if request.method == "POST":
@@ -56,7 +58,25 @@ def check_validation(request):
 
 		
 def post(request):
-	return render(request, 'post.html')
+	user = check_validation(request)
+	if user:
+		if request.method == 'POST':
+			form = PostForm(request.POST, request.FILES)
+			if form.is_valid():
+				image = form.cleaned_data.get('image')
+				caption = form.cleaned_data.get('caption')
+				post = post(user=user, image=image, caption=caption)
+				post.save()
+				path = str(BASE_DIR + post.image.url)
+				client = ImgurClient(14ffa56696f426a, d924dc264aee194c27c9f92eb19ba1c01f0b1d9b)
+				post.image_url = client.upload_from_path(path,anon=True)['link']
+				post.save()
+				return redirect('/feed/')
+		else:
+			form = postform()
+		return render(request, 'post.html', {'form':form})
+	else:
+		return redirect('/login/')
 	
 
 def feed(request):
