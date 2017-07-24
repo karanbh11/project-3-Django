@@ -4,4 +4,9 @@ from app1.models import user
 class signup(forms.ModelForm):
 	class meta:
 		model = user
-		feilds = ['firstname', 'lastname', 'username', 'email', 'password']
+		fields = ['firstname', 'lastname', 'username', 'email', 'password']
+		
+class log_in(forms.ModelForm):
+	class meta:
+		model = user
+		fields = ['username', 'password']
