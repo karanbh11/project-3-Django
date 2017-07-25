@@ -9,17 +9,17 @@
             <p>Let the world know who you are........</p>
         </div>
         <div class="log">
-            <p>Already a member!!<a href="log">Log In</a></p>
+            <p>Already a member!!<a href="log/">Log In</a></p>
         </div>
         <div class="sign_up">
         <p style="color: black;font-size: 35px;text-align:center;margin-top:5px">Sign-Up</p>
-        <form class="form" method="post">
+        <form class="form" method="POST">
 			{% csrf_token %}
-            <input type="text" placeholder="First Name" value={{firstname}}><br>
-            <input type="text" placeholder="Last Name" value={{lastname}}><br>
-            <input type="text" placeholder="Choose a Username" value={{username}}><br>
-            <input type="email" placeholder="Enter your Email" value={{email}}><br>
-            <input type="password" placeholder="Enter a password" value={{password}}><br>
+            <input type="text" placeholder="First Name" name="firstname" value={{firstname}}><br>
+            <input type="text" placeholder="Last Name" name="lastname" value={{lastname}}><br>
+            <input type="text" placeholder="Choose a Username" name="username" value={{username}}><br>
+            <input type="email" placeholder="Enter your Email" name="email" value={{email}}><br>
+            <input type="password" placeholder="Enter a password" name="password" value={{password}}><br>
             <input type="submit" value="Sign Up" class="buttons">
         </form>
         </div>                         

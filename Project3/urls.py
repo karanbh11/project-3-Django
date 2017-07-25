@@ -20,8 +20,8 @@ from Project3.views import *
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 	url(r'^$', home),
-	url(r'log/$', log_in),
-	url(r'^post/$', post),
+	url(r'^log/$', login_view),
+	url(r'^post/$', post_view),
 	url(r'^feed/$', feed),
 	url(r'^like/$', like),
 	url(r'^comment/$', comment),

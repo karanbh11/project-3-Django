@@ -6,10 +6,12 @@
     </head>
     <body>
         <p style="color:bisque;font-size:40px;text-align:center">Login</p>
-        <form class="login">
-            <input type="text" placeholder="Enter your Username" value={{username}}>
-            <input type="password" placeholder="Enter your password" value={{password}}>
+        <form class="login" method="POST">
+			{% csrf_token %}
+            <input type="text" placeholder="Enter your Username" name="username" value={{username}}>
+            <input type="password" placeholder="Enter your password" name="password" value={{password}}>
             <input type="submit" value="Log in" class="buttons">
         </form>
+		{{message}}
     </body>
 </html>

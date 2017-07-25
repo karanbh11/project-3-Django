@@ -15,6 +15,7 @@ class user(models.Model):
 class session_token(models.Model):
 	user = models.ForeignKey(user)
 	session_token = models.CharField(max_length=255)
+	last_request_on = models.DateTimeField(auto_now=True)
 	created_on = models.DateTimeField(auto_now_add=True)
 	is_valid = models.BooleanField(default=True)
 	def create_token(self):
