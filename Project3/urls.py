@@ -20,6 +20,7 @@ from Project3.views import *
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 	url(r'^$', home),
+	url(r'^success/$', success),
 	url(r'^log/$', login_view),
 	url(r'^post/$', post_view),
 	url(r'^feed/$', feed),

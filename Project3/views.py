@@ -122,3 +122,6 @@ def comment(request):
 			return redirect('/feed/')
 	else:
 		return redirect('/login')
+
+def success(request):
+	return render(request, 'success.html', {'STATIC_URL':STATIC_URL})
