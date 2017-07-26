@@ -155,3 +155,10 @@ def comment(request):
 			return redirect('/feed/')
 	else:
 		return redirect('/login')
+
+	
+def log_out(request):
+	if request.COOKIES.get('session_token'):
+		session = session_token.objects.filter(session_token=request.COOKIES.get('session_token'))
+		session.delete()
+	return render(request, 'log_out.html', {'STATIC_URL':STATIC_URL})
