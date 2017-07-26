@@ -13,13 +13,13 @@
         </div>
         <div class="sign_up">
         <p style="color: black;font-size: 35px;text-align:center;margin-top:5px">Sign-Up</p>
-        <form class="form" method="POST" action="success/">
+        <form class="form" method="POST">
 			{% csrf_token %}
-            <input type="text" placeholder="First Name" name="firstname" value={{firstname}}><br>
-            <input type="text" placeholder="Last Name" name="lastname" value={{lastname}}><br>
-            <input type="text" placeholder="Choose a Username" name="username" value={{username}}><br>
-            <input type="email" placeholder="Enter your Email" name="email" value={{email}}><br>
-            <input type="password" placeholder="Enter a password" name="password" value={{password}}><br>
+            <input type="text" placeholder="First Name" name="firstname" required value={{firstname}}><br>
+            <input type="text" placeholder="Last Name" name="lastname" required value={{lastname}}><br>
+            <input type="text" placeholder="Choose a Username" pattern=".{4,20}" title="4 to 20 characters" name="username" required value={{username}}><br>
+            <input type="email" placeholder="Enter your Email" name="email" required value={{email}}><br>
+            <input type="password" minlength="4" pattern=".{5,12}" title="5 to 12 characters" placeholder="Enter a password" name="password" required value={{password}}><br>
             <input type="submit" value="Sign Up" class="buttons">
         </form>
         </div>                         

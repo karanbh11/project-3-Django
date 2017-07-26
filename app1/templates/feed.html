@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}mycss2.css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <form method="post" action="/post/">
+	<div class="feed">
+    <form method="post" action="/post/" class="post">
         {% csrf_token %}
         <input type="submit" class="btn-default btn" value="Create Post">
     </form>
+    {% for post in posts reversed %}
 
-
-    {% for post in posts %}
-
-
-        <h3> Posted by: {{ post.user.username }} </h3>
-        <p>[{{ post.created_on }}]</p>
-        <img style="display:inline-block; width:350px; height:300px;"
+        <h3 align="center"><pre>{{ post.user.username }}   on   [{{ post.created_on }}]</pre></h3>
+        <img style="display:inline-block; width:550px; height:450px;border:3px solid black;border-radius:20px;"
              src="{{ post.image_url }}" /><br>
         <span  style="display:inline-block;">{{ post.caption }}</span><br/><br/>
         <div style="display:inline-block">
@@ -51,5 +49,6 @@
         </div>
 
     {% endfor %}
+	</div>
 </body>
 </html>

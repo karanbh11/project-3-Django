@@ -5,6 +5,7 @@ from app1.models import *
 from Project3.forms import *
 from django.contrib.auth.hashers import *
 from imgurpython import ImgurClient
+from django.core.mail import send_mail
 
 def home(request):
 	if request.method == "POST":
@@ -17,6 +18,14 @@ def home(request):
 			password = form.cleaned_data['password']
 			user1 = user(firstname=firstname, lastname=lastname, username=username, password=make_password(password), email=email)
 			user1.save()
+			subject = 'Confirmation on joining Let\'s Share'
+			message = 'Thanks for Joining Let\'s Share !!!!\n Welcome to the family \n Post and show the world who you are'
+			from_email = EMAIL_HOST_USER
+			to_email = [user1.email]
+			
+			send_mail(subject, message, from_email, to_email)
+			
+			return render(request, 'success.html', {'STATIC_URL':STATIC_URL})
 	elif request.method == "GET":
 		form = signup()
 	return render(request, 'home.html', {'STATIC_URL':STATIC_URL, 'form':form})
@@ -39,7 +48,9 @@ def login_view(request):
 					response.set_cookie(key='session_token', value=token.session_token)
 					return response
 				else:
-					response_data['message'] = 'Incorrect Password! Please try again!'
+					response_data['message'] = 'Incorrect Password or Username! Please try again!'
+			else:
+				response_data['message'] = 'Incorrect Password or Username! Please try again!'
 	elif request.method == 'GET':
 		form = log_in()
 
@@ -89,7 +100,7 @@ def feed(request):
 			existing_like = LikeModel.objects.filter(post_id=post1.id, user=user).first()
 			if existing_like:
 				post1.has_liked = True
-		return render(request, 'feed.html', {'posts':posts})
+		return render(request, 'feed.html', {'posts':posts, 'STATIC_URL':STATIC_URL})
 	else:
 		return redirect('/log/')
 		
@@ -102,8 +113,22 @@ def like(request):
 			existing_like = LikeModel.objects.filter(post_id=post_id, user=user).first()
 			if not existing_like:
 				LikeModel.objects.create(post_id=post_id, user=user)
+				poster = post.objects.filter(id=post_id).first()
+				subject = 'Your photo was liked'
+				message = 'Your photo was liked by ' + user.username
+				from_email = EMAIL_HOST_USER
+				to_email = [poster.user.email]
+			
+				send_mail(subject, message, from_email, to_email)
 			else:
 				existing_like.delete()
+				poster = post.objects.filter(id=post_id).first()
+				subject = 'Your photo was unliked'
+				message = 'Your photo was unliked by ' + user.username
+				from_email = EMAIL_HOST_USER
+				to_email = [poster.user.email]
+			
+				send_mail(subject, message, from_email, to_email)
 			return redirect('/feed/')
 	else:
 		return redirect('/login/')
@@ -117,11 +142,16 @@ def comment(request):
 			comment_text = form.cleaned_data.get('comment_text')
 			comment = CommentModel.objects.create(user=user, post_id=post_id, comment_text=comment_text)
 			comment.save()
+			poster = post.objects.filter(id=post_id).first()
+			subject = 'A comment on your photo'
+			message = str(user.username) + ' commented on you photo..\n\n HE SAYS: ' + comment_text
+			from_email = EMAIL_HOST_USER
+			to_email = [poster.user.email]
+			
+			send_mail(subject, message, from_email, to_email)
+			
 			return redirect('/feed/')
 		else:
 			return redirect('/feed/')
 	else:
 		return redirect('/login')
-
-def success(request):
-	return render(request, 'success.html', {'STATIC_URL':STATIC_URL})
