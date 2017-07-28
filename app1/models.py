@@ -50,4 +50,14 @@ class CommentModel(models.Model):
 	comment_text = models.CharField(max_length=400)
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
+	
+	@property
+	def comment_like_count(self):
+		return len(comment_like_model.objects.filter(comment=self))
+	
+class comment_like_model(models.Model):
+	user = models.ForeignKey(user)
+	comment = models.ForeignKey(CommentModel)
+	created_on = models.DateTimeField(auto_now_add=True)
+	updated_on = models.DateTimeField(auto_now=True)
 

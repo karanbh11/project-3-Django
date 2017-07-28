@@ -44,11 +44,21 @@
         </div>
 
         <div>
+
             {% for comment in post.comments %}
                 <p><b>{{ comment.user.username }} [{{ comment.created_on }}]:</b> {{ comment.comment_text }}</p>
-            {% endfor %}
-        </div>
-
+				<p>{{ comment.comment_like_count }} upvotes </p>
+				<form method="POST" action="/comment_like/">
+				{% csrf_token %}
+				<input type="hidden" name="comment" value="{{ comment.id }}" />
+				{% if comment.c_like %}
+				<input type="submit" value="UP / DOWN VOTE">
+				{% else %}
+				<input type="submit" value="UP / DOWN VOTE">
+				{% endif %}
+				</form>
+				
+			{% endfor %}
     {% endfor %}
 	</div>
 </body>
