@@ -56,6 +56,10 @@ input{
     border-radius: 7px;
 }
 
+input:hover{
+	background:lightgray;
+}
+
 .buttons{
     width: 100px;
     height: 30px;
@@ -91,4 +95,8 @@ a:hover{
 	font-family:monospace;
 	font-size: 25px;
 	background:gold;
+}
+
+.log:hover{
+	opacity: 1;
 }

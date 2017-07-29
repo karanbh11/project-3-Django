@@ -57,3 +57,23 @@ a:hover{
 	font-size: 25px;
 	background:gold;
 }
+
+.comment_area{
+	background:blue;
+	position:relative;
+	border-radius:10px;
+	margin:5px 5px 5px 5px;
+}
+
+.full{
+	background:gray;
+	margin:10px;
+	width:580px;
+	border-radius:20px;
+}
+
+
+.comment{
+	position:relative;
+	left:-15px;
+}

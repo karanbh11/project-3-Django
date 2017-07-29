@@ -17,14 +17,15 @@
 		<input type="submit" value="search" class="buttons">
 	</form>
     {% for post in posts reversed %}
+	<div class="full">
         <h3 align="center"><pre>{{ post.user.username }}   on   [{{ post.created_on }}]</pre></h3>
-        <img style="display:inline-block; width:550px; height:450px;border:3px solid black;border-radius:20px;"
+        <img style="display:inline-block; width:550px; height:450px;border:3px solid black;border-radius:20px;position:relative;left:10px;"
              src="{{ post.image_url }}" /><br>
         <span  style="display:inline-block;color:blue;font-size:18px;white-space:pre;">								{{ post.caption }}</span><br/><br/>
-        <div style="display:inline-block">
+        <div style="display:inline-block;position:relative;left:10px;">
             {{ post.like_count }} likes this
         </div>
-        <div style="display:inline-block">
+        <div style="display:inline-block;position:relative;left:10px;">
             <form method="POST" action="/like/">
               {% csrf_token %}
               <input type="hidden" name="post" value="{{ post.id }}" />
@@ -36,7 +37,7 @@
             </form>
         </div>
 
-        <div>
+        <div class="comment">
             <form method="POST" action="/comment/">
                 {% csrf_token %}
             <input type="hidden" name="post" value="{{ post.id }}" />
@@ -47,10 +48,14 @@
         </div>
 
         <div>
-
+			
             {% for comment in post.comments %}
-                <p><b>{{ comment.user.username }} [{{ comment.created_on }}]:</b> {{ comment.comment_text }}</p>
-				<p>{{ comment.comment_like_count }} upvotes </p>
+				<div class="comment_area">
+                <p style="position:relative;left:5px;"><b>{{ comment.user.username }}</b> [{{ comment.created_on }}]: {{ comment.comment_text }}</p>
+				<div style="display:inline-block;position:relative;left:10px;">
+				{{ comment.comment_like_count }} upvotes 
+				</div>
+				<div style="display:inline-block;position:relative;">
 				<form method="POST" action="/comment_like/">
 				{% csrf_token %}
 				<input type="hidden" name="comment" value="{{ comment.id }}" />
@@ -60,8 +65,10 @@
 				<input type="submit" value="UP / DOWN VOTE">
 				{% endif %}
 				</form>
-				
+				</div>
+				</div>
 			{% endfor %}
+		</div>
 		</div>
     {% endfor %}
 </div>
