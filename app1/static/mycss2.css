@@ -29,8 +29,15 @@ body{
 
 .search{
 	position:relative;
-	left:35%;
+	left:20%;
 	margin:0 auto;
+}
+
+input{
+    width: 200px;
+    height: 25px;
+    margin: 8px 25px;
+    border-radius: 7px;
 }
 
 .buttons{
@@ -43,4 +50,10 @@ body{
 
 .buttons:hover{
 	background: gray;
+}
+
+a:hover{
+	font-family:monospace;
+	font-size: 25px;
+	background:gold;
 }

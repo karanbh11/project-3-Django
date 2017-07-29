@@ -87,7 +87,7 @@ def post_view(request):
 				return redirect('/feed/')
 		else:
 			form = post_form()
-		return render(request, 'post.html', {'form':form})
+		return render(request, 'post.html', {'form':form, 'STATIC_URL':STATIC_URL})
 	else:
 		return redirect('/log/')
 	
