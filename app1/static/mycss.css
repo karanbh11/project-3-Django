@@ -39,10 +39,15 @@
     font-size: 20px;
 }
 
+.sign_up:hover {
+	opacity: 1;
+}
+
 .form{
     position: absolute;
     margin-top: 0px;
 }
+
 
 input{
     width: 350px;
@@ -57,6 +62,10 @@ input{
     margin: 15px 150px;
     border-radius: 5px;
     font-family: 'lobsterregular', cursive;
+}
+
+.buttons:hover{
+	background: gray;
 }
 
 body{
@@ -76,4 +85,10 @@ h1{
     width: 365px;
     top: 40px;
     margin: 0 auto;
+}
+
+a:hover{
+	font-family:monospace;
+	font-size: 25px;
+	background:gold;
 }

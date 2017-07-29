@@ -8,7 +8,7 @@
 }
 
 body{
-    background: url("im3.jpg");
+    background: url("im4.jpg");
     background-size: cover;
 	background-repeat:no-repeat;
 	background-attachment:fixed;
@@ -23,6 +23,24 @@ body{
 
 .post{
 	position:relative;
-	left:47%;
+	left:40%;
     margin: 0 auto;
+}
+
+.search{
+	position:relative;
+	left:35%;
+	margin:0 auto;
+}
+
+.buttons{
+    width: 100px;
+    height: 30px;
+    margin: 15px 0;
+    border-radius: 5px;
+    font-family: 'lobsterregular', cursive;
+}
+
+.buttons:hover{
+	background: gray;
 }

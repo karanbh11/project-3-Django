@@ -23,7 +23,7 @@ def home(request):
 			from_email = EMAIL_HOST_USER
 			to_email = [user1.email]
 			
-			send_mail(subject, message, from_email, to_email)
+			send_mail(subject, message, from_email, to_email, fail_silently=True)
 			
 			return render(request, 'success.html', {'STATIC_URL':STATIC_URL})
 	elif request.method == "GET":
@@ -82,7 +82,7 @@ def post_view(request):
 				post1.save()
 				path = str(post1.image.url)
 				client = ImgurClient('14ffa56696f426a', 'd924dc264aee194c27c9f92eb19ba1c01f0b1d9b')
-				post1.image_url = client.upload_from_path(path,anon=True)['link']
+				post1.image_url = client.upload_from_path(path, config=None, anon=True)['link']
 				post1.save()
 				return redirect('/feed/')
 		else:
@@ -124,7 +124,7 @@ def like(request):
 				from_email = EMAIL_HOST_USER
 				to_email = [poster.user.email]
 			
-				send_mail(subject, message, from_email, to_email)
+				send_mail(subject, message, from_email, to_email, fail_silently=True)
 			else:
 				existing_like.delete()
 				poster = post.objects.filter(id=post_id).first()
@@ -133,7 +133,7 @@ def like(request):
 				from_email = EMAIL_HOST_USER
 				to_email = [poster.user.email]
 			
-				send_mail(subject, message, from_email, to_email)
+				send_mail(subject, message, from_email, to_email, fail_silently=True)
 			return redirect('/feed/')
 	else:
 		return redirect('/login/')
@@ -154,7 +154,7 @@ def comment(request):
 			from_email = EMAIL_HOST_USER
 			to_email = [poster.user.email]
 			
-			send_mail(subject, message, from_email, to_email)
+			send_mail(subject, message, from_email, to_email, fail_silently=True)
 			
 			return redirect('/feed/')
 		else:
@@ -187,3 +187,9 @@ def comment_like(request):
 	else:
 		return redirect('/login/')
 		
+def search(request):
+	if "q" in request.GET:
+		q = request.GET["q"]
+		posts = post.objects.filter(user__username__icontains=q)
+		return render(request, 'feed.html', {"posts":posts, "query":q, 'STATIC_URL':STATIC_URL})
+	return render(request, "feed.html")

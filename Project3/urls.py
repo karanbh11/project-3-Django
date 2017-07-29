@@ -26,5 +26,6 @@ urlpatterns = [
 	url(r'^feed/$', feed),
 	url(r'^like/$', like),
 	url(r'^comment/$', comment),
-	url(r'^comment_like/$', comment_like)
+	url(r'^comment_like/$', comment_like),
+	url(r'^search/$', search),
 ]

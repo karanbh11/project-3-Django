@@ -10,8 +10,12 @@
 	<div class="feed">
     <form method="post" action="/post/" class="post">
         {% csrf_token %}
-        <input type="submit" class="btn-default btn" value="Create Post">
+        <input type="submit" class="buttons" value="Create Post">
     </form>
+	<form method="GET" action="/search/" class="search">
+		<input type="text" name="q" placeholder="Show Posts From">
+		<input type="submit" value="search" class="buttons">
+	</form>
     {% for post in posts reversed %}
 
         <h3 align="center"><pre>{{ post.user.username }}   on   [{{ post.created_on }}]</pre></h3>
