@@ -1,0 +1,50 @@
+div {
+	width: 80%;
+	position: relative;
+	margin: auto;
+	height: 70%;
+	border-radius: 20px;
+}
+body {
+	font-family: "verdana";
+	background-color: #99cccc;
+}
+.button {
+	text-decoration: none;
+	color: white;
+	border: solid;
+	border-width: 2px;
+	border-radius: 5px;
+	background-color: rgba(0,0,0,0.5);
+	padding: 5px;
+}
+.button:hover {
+	background-color: rgba(0,0,0,1);
+}
+input[type=text]{
+	padding: 10px;
+	border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+form {
+	position: relative;
+	margin: auto;
+	height: 70%;
+	border-radius: 20px;
+	border: solid;
+	border-width: 2px;
+	padding: 20px;
+}
+
+.buttons{
+    width: 100px;
+    height: 30px;
+    margin: 15px 150px;
+    border-radius: 5px;
+    font-family: 'lobsterregular', cursive;
+}
+
+.buttons:hover{
+	background: gray;
+}

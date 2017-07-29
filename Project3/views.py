@@ -1,3 +1,4 @@
+# Importing various files as required
 from django.http import *
 from django.shortcuts import *
 from Project3.settings import *
@@ -7,6 +8,7 @@ from django.contrib.auth.hashers import *
 from imgurpython import ImgurClient
 from django.core.mail import send_mail
 
+# View for home page
 def home(request):
 	if request.method == "POST":
 		form = signup(request.POST)
@@ -29,7 +31,8 @@ def home(request):
 	elif request.method == "GET":
 		form = signup()
 	return render(request, 'home.html', {'STATIC_URL':STATIC_URL, 'form':form})
-	
+
+# View for login page	
 def login_view(request):
 	response_data = {}
 	if request.method == "POST":
@@ -69,7 +72,8 @@ def check_validation(request):
 	else:
 		return None
 
-		
+
+# View for posting an image		
 def post_view(request):
 	user = check_validation(request)
 	if user:
@@ -92,6 +96,7 @@ def post_view(request):
 		return redirect('/log/')
 	
 
+# View for the feed page
 def feed(request):
 	user = check_validation(request)
 	if user:
@@ -108,7 +113,9 @@ def feed(request):
 		return render(request, 'feed.html', {'posts':posts, 'STATIC_URL':STATIC_URL})
 	else:
 		return redirect('/log/')
-		
+	
+
+# View for liking an image	
 def like(request):
 	user = check_validation(request)
 	if user and request.method == 'POST':
@@ -138,6 +145,8 @@ def like(request):
 	else:
 		return redirect('/login/')
 		
+		
+# View for commenting on a photo
 def comment(request):
 	user = check_validation(request)
 	if user and request.method == 'POST':
@@ -162,13 +171,17 @@ def comment(request):
 	else:
 		return redirect('/login')
 
-	
+
+
+# View for the log_out functionality		
 def log_out(request):
 	if request.COOKIES.get('session_token'):
 		session = session_token.objects.filter(session_token=request.COOKIES.get('session_token'))
 		session.delete()
 	return render(request, 'log_out.html', {'STATIC_URL':STATIC_URL})
 	
+	
+# View for upvoting of a comment
 def comment_like(request):
 	user = check_validation(request)
 	if user and request.method == 'POST':
@@ -186,7 +199,9 @@ def comment_like(request):
 			return HttpResponse("form data is invalid.")
 	else:
 		return redirect('/login/')
-		
+	
+
+# View for searching posts of user by username	
 def search(request):
 	if "q" in request.GET:
 		q = request.GET["q"]

@@ -1,7 +1,10 @@
+# Importing required files
 from django import forms
 from django.forms import ModelForm
 from app1.models import *
 
+
+# Forms defined for various purposes. Names suggest their use
 class signup(forms.ModelForm):
 	class Meta:
 		model = user

@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-	<h3><a href="/log_out" style="position:fixed;right:0;">Log Out</a></h3>
+	<h3><a href="/log_out" style="position:fixed;right:10px;font-size:30px;">Log Out</a></h3>
 <div class="feed">
     <form method="post" action="/post/" class="post">
         {% csrf_token %}
@@ -21,7 +21,7 @@
         <h3 align="center"><pre>{{ post.user.username }}   on   [{{ post.created_on }}]</pre></h3>
         <img style="display:inline-block; width:550px; height:450px;border:3px solid black;border-radius:20px;position:relative;left:10px;"
              src="{{ post.image_url }}" /><br>
-        <span  style="display:inline-block;color:blue;font-size:18px;white-space:pre;">								{{ post.caption }}</span><br/><br/>
+        <span  style="display:inline-block;color:gold;font-size:18px;white-space:pre;">								{{ post.caption }}</span><br/><br/>
         <div style="display:inline-block;position:relative;left:10px;">
             {{ post.like_count }} likes this
         </div>

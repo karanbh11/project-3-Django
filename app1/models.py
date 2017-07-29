@@ -2,7 +2,7 @@ from django.db import models
 import uuid
 
 # Create your models here.
-
+# The names of the models suggest their use
 class user(models.Model):
 	firstname = models.CharField(max_length=30)
 	lastname = models.CharField(max_length=30)
@@ -29,6 +29,7 @@ class post(models.Model):
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
 	
+	# This counts the no. of likes on an image
 	@property
 	def like_count(self):
 		return len(LikeModel.objects.filter(post=self))
@@ -51,6 +52,7 @@ class CommentModel(models.Model):
 	created_on = models.DateTimeField(auto_now_add=True)
 	updated_on = models.DateTimeField(auto_now=True)
 	
+	# It counts the no. of upvotes on a comment
 	@property
 	def comment_like_count(self):
 		return len(comment_like_model.objects.filter(comment=self))
